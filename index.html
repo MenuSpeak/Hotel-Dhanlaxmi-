@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,334 +6,736 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Hotel Dhanlaxmi - Menu with Cart</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
+  
 
-    body {
+
+
+
+<style>
+/* --------------------
+   Header Section
+-------------------- */
+.header-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 24px;
+  align-items: center; /* center align */
+}
+
+/* Hotel Logo */
+.header-section .logo {
+  font-size: 26px;
+  font-weight: 700;
+  background: var(--accent);
+  padding: 16px 28px;
+  border-radius: 14px;
+  color: #000;
+  box-shadow: 0 6px 20px rgba(212,175,55,0.2);
+}
+
+
+  /* Search Bar Wrapper */
+.search-bar {
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 16px 12px 44px; /* left padding for icon */
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+/* Focus effect */
+.search-bar input:focus {
+  border-color: var(--gold1);
+  box-shadow: 0 4px 16px rgba(212,175,55,0.25);
+}
+
+/* Search Icon */
+.search-bar::before {
+  content: "🔍";
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #888;
+  pointer-events: none;
+}
+
+/* 📱 Mobile Friendly */
+@media (max-width: 480px) {
+  .search-bar {
+    max-width: 100%;
+  }
+  .search-bar input {
+    font-size: 14px;
+    padding: 10px 14px 10px 40px;
+  }
+}
+
+/* Search Bar */
+.header-section .search-bar {
+  width: 100%;
+  max-width: 420px;
+}
+.header-section .search-bar input {
+  width: 100%;
+  padding: 120px 160px;
+  border-radius: 120px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+}
+
+/* Tabs Card */
+.tab-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  width: 100%;
+}
+
+/* Tabs Grid */
+.tabs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tabs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .tabs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tab Button */
+.tab {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.tab:hover {
+  background: #f8f8f8;
+  transform: translateY(-2px);
+}
+
+.tab.active {
+  background: var(--accent);
+  color: #0b0b0d;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(212,175,55,0.35);
+}
+
+/* --------------------
+   Global Variables
+-------------------- */
+:root {
+  --bg: #ffffff;
+  --surface: #f8f9fa;
+  --muted: #6c757d;
+  --gold1: #d4af37;
+  --gold2: #ffcc66;
+  --accent: linear-gradient(90deg, var(--gold1), var(--gold2));
+  --card-radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,0.1);
+  --maxw: 1200px;
+  --gap: 20px;
+  --ff-heading: 'Playfair Display', serif;
+  --ff-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
   margin: 0;
   min-height: 100vh;
-  color: #e8e6e3;
+  background: var(--bg);
+  color: #000;
   font-family: var(--ff-ui);
   -webkit-font-smoothing: antialiased;
   padding: 32px;
   display: flex;
   justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: var(--gap);
+  align-items: start;
+}
+
+/* --------------------
+   LEFT - Cover / Info
+-------------------- */
+.cover {
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
+  border-radius: var(--card-radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.1);
   position: relative;
-  z-index: 0;
+  overflow: hidden;
 }
 
-/* Background image with opacity */
-body::before {
-  content: "";
+.brand {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.logo {
+  width: 86px;
+  height: 86px;
+  border-radius: 14px;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-family: var(--ff-heading);
+  font-size: 28px;
+  font-weight: 700;
+  box-shadow: 0 6px 22px rgba(212,175,55,0.12);
+}
+
+.brand h1 {
+  margin: 0;
+  font-family: var(--ff-heading);
+  font-size: 22px;
+  letter-spacing: 0.6px;
+  color: #000;
+}
+
+.brand p {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.cover-hero {
+  margin-top: 18px;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 260px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.2));
+  display: flex;
+  align-items: end;
+}
+
+.cover-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.03);
+  filter: contrast(1.05) saturate(1.05);
+}
+
+.cover-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.badge {
+  background: linear-gradient(90deg, rgba(212,175,55,0.12), rgba(255,204,102,0.06));
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--gold2);
+  border: 1px solid rgba(212,175,55,0.09);
+}
+
+/* --------------------
+   RIGHT - Menu
+-------------------- */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.menu-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.title {
+  font-family: var(--ff-heading);
+  font-size: 28px;
+  margin: 0;
+  color: #000;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.search {
+  background: rgba(0,0,0,0.03);
+  backdrop-filter: blur(6px);
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-width: 300px;
+}
+
+.search input {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: #000;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* --------------------
+   Tabs Card + Grid
+-------------------- */
+.tab-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+
+.tabs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .tabs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tab {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  white-space: nowrap;
+}
+
+.tab:hover {
+  background: #f8f8f8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.tab.active {
+  background: var(--accent);
+  color: #0b0b0d;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(212,175,55,0.35);
+}
+
+/* --------------------
+   Menu Grid + Cards
+-------------------- */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(0,0,0,0.015), rgba(0,0,0,0.01));
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  gap: 14px;
+  align-items: start;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  transition: transform .28s, box-shadow .28s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.thumb {
+  width: 120px;
+  height: 96px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s;
+}
+
+.card:hover .thumb img {
+  transform: scale(1.06);
+}
+
+.info {
+  flex: 1;
+}
+
+.dish {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  font-family: var(--ff-heading);
+  color: #000;
+}
+
+.desc {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.price {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--gold2);
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+}
+
+.pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.1);
+  font-size: 12px;
+  color: var(--muted);
+  background: transparent;
+}
+
+.cta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(212,175,55,0.12);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 10px 14px;
+  border-radius: 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+/* --------------------
+   Cart Styles
+-------------------- */
+.cart-container {
   position: fixed;
-  inset: 0;
-  background: url("img/bg.jpeg") center/cover no-repeat;
-  opacity: 0.5;
-  z-index: -1; /* behind everything */
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
 }
 
-    :root{
-      --bg:#0b0b0d;
-      --surface:#0f1114;
-      --muted:#9aa0a6;
-      --gold1:#d4af37;
-      --gold2:#ffcc66;
-      --accent: linear-gradient(90deg,var(--gold1),var(--gold2));
-      --glass: rgba(255,255,255,0.03);
-      --card-radius:16px;
-      --shadow: 0 10px 30px rgba(2,6,23,0.6);
-      --glass-strong: rgba(255,255,255,0.04);
-      --maxw:1200px;
-      --gap:20px;
-      --ff-heading: 'Playfair Display', serif;
-      --ff-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;background:radial-gradient(1200px 600px at 10% 10%, rgba(212,175,55,0.06), transparent 6%),
-                      radial-gradient(1000px 500px at 95% 90%, rgba(255,204,102,0.04), transparent 8%),
-                      var(--bg);
-      color:#e8e6e3;font-family:var(--ff-ui);-webkit-font-smoothing:antialiased;padding:32px;display:flex;justify-content:center;
-    }
+.cart-button {
+  background: var(--accent);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 30px rgba(212,175,55,0.12);
+  cursor: pointer;
+  position: relative;
+  border: none;
+}
 
-    .container{width:100%;max-width:var(--maxw);display:grid;grid-template-columns:380px 1fr;gap:var(--gap);align-items:start}
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #e74c3c;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
 
-    /* LEFT - Cover */
-    .cover{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:var(--card-radius);padding:28px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.03);
-      position:relative;overflow:hidden;
-    }
-    .brand{display:flex;gap:16px;align-items:center}
-    .logo{
-      width:86px;height:86px;border-radius:14px;background:linear-gradient(135deg,var(--gold1),var(--gold2));display:flex;align-items:center;justify-content:center;color:#0b0b0d;font-family:var(--ff-heading);font-size:28px;font-weight:700;box-shadow:0 6px 22px rgba(212,175,55,0.12)
-    }
-    .brand h1{margin:0;font-family:var(--ff-heading);font-size:22px;letter-spacing:0.6px}
-    .brand p{margin:2px 0 0 0;color:var(--muted);font-size:13px}
+.cart-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
 
-    .cover-hero{margin-top:18px;border-radius:12px;overflow:hidden;height:260px;background:linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.5));display:flex;align-items:end}
-    .cover-hero img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.03);filter:contrast(1.05) saturate(1.05)}
-    .cover-hero .overlay{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay}
+.cart-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
 
-    .cover-meta{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
-    .badge{background:linear-gradient(90deg,rgba(212,175,55,0.12),rgba(255,204,102,0.06));padding:8px 12px;border-radius:999px;font-size:13px;color:var(--gold2);border:1px solid rgba(212,175,55,0.09)}
+.cart-content {
+  background: var(--surface);
+  width: 90%;
+  max-width: 500px;
+  border-radius: var(--card-radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.1);
+  max-height: 80vh;
+  overflow-y: auto;
+}
 
-    /* RIGHT - Menu */
-    .menu{
-      display:flex;flex-direction:column;gap:18px;
-    }
-    .menu-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-    .title{font-family:var(--ff-heading);font-size:28px;margin:0}
-    .subtitle{color:var(--muted);font-size:14px;margin-top:6px}
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 12px;
+}
 
-    .controls{display:flex;gap:12px;align-items:center}
-    .search{
-      background:var(--glass);backdrop-filter:blur(6px);padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);display:flex;gap:10px;align-items:center;min-width:300px
-    }
-    .search input{background:transparent;border:0;outline:0;color:inherit;font-size:14px;width:100%}
+.cart-title {
+  font-family: var(--ff-heading);
+  font-size: 22px;
+  color: var(--gold2);
+}
 
-    .tabs{display:flex;gap:8px;flex-wrap:wrap}
-    .tab{padding:8px 14px;border-radius:999px;background:transparent;border:1px solid rgba(255,255,255,0.03);font-size:13px;color:var(--muted);cursor:pointer}
-    .tab.active{background:var(--accent);color:#0b0b0d;border:none;box-shadow:0 8px 30px rgba(212,175,55,0.12)}
+.close-cart {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 24px;
+  cursor: pointer;
+}
 
-    .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
 
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border-radius:12px;padding:14px;display:flex;gap:14px;align-items:start;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 24px rgba(2,6,23,0.6);transition:transform .28s cubic-bezier(.2,.9,.2,1),box-shadow .28s}
-    .card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(2,6,23,0.7)}
+.item-info {
+  flex: 1;
+}
 
-    .thumb{width:120px;height:96px;border-radius:10px;overflow:hidden;flex-shrink:0;border:1px solid rgba(255,255,255,0.03)}
-    .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
-    .card:hover .thumb img{transform:scale(1.06)}
+.item-name {
+  font-weight: 600;
+  color: #000;
+}
 
-    .info{flex:1}
-    .dish{font-size:16px;font-weight:600;margin:0;font-family:var(--ff-heading)}
-    .desc{color:var(--muted);font-size:13px;margin-top:6px}
-    .meta-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
-    .price{font-weight:700;font-size:16px;color:var(--gold2)}
-    .tags{display:flex;gap:8px}
-    .pill{padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.03);font-size:12px;color:var(--muted);background:transparent}
+.item-price {
+  color: var(--gold2);
+  font-size: 14px;
+}
 
-    /* CTA area */
-    .cta-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
-    .btn-primary{background:linear-gradient(90deg,var(--gold1),var(--gold2));border:none;padding:12px 18px;border-radius:12px;color:#0b0b0d;font-weight:700;cursor:pointer;box-shadow:0 8px 30px rgba(212,175,55,0.12)}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px 14px;border-radius:12px;color:var(--muted);cursor:pointer}
+.item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-    /* Cart styles */
-    .cart-container {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 100;
-    }
-    
-    .cart-button {
-      background: linear-gradient(90deg,var(--gold1),var(--gold2));
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 30px rgba(212,175,55,0.12);
-      cursor: pointer;
-      position: relative;
-      border: none;
-    }
-    
-    .cart-count {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: #e74c3c;
-      color: white;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: bold;
-    }
-    
-    .cart-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(11, 11, 13, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-    
-    .cart-modal.open {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .cart-content {
-      background: var(--surface);
-      width: 90%;
-      max-width: 500px;
-      border-radius: var(--card-radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.03);
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-    
-    .cart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-      padding-bottom: 12px;
-    }
-    
-    .cart-title {
-      font-family: var(--ff-heading);
-      font-size: 22px;
-      margin: 0;
-      color: var(--gold2);
-    }
-    
-    .close-cart {
-      background: transparent;
-      border: none;
-      color: var(--muted);
-      font-size: 24px;
-      cursor: pointer;
-    }
-    
-    .cart-items {
-      margin-bottom: 20px;
-    }
-    
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-    }
-    
-    .item-info {
-      flex: 1;
-    }
-    
-    .item-name {
-      font-weight: 600;
-      margin: 0 0 4px 0;
-    }
-    
-    .item-price {
-      color: var(--gold2);
-      font-size: 14px;
-    }
-    
-    .item-quantity {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .quantity-btn {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.03);
-      color: var(--muted);
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    
-    .quantity {
-      font-weight: 600;
-    }
-    
-    .remove-item {
-      background: transparent;
-      border: none;
-      color: #e74c3c;
-      cursor: pointer;
-      margin-left: 12px;
-    }
-    
-    .cart-empty {
-      text-align: center;
-      color: var(--muted);
-      padding: 20px 0;
-    }
-    
-    .cart-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 0;
-      border-top: 1px solid rgba(255,255,255,0.03);
-      font-weight: 600;
-      font-size: 18px;
-    }
-    
-    .total-amount {
-      color: var(--gold2);
-    }
-    
-    .cart-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 16px;
-    }
-    
-    .btn-whatsapp {
-      background: #25D366;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 12px;
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex: 1;
-      justify-content: center;
-    }
-    
-    .btn-clear {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.04);
-      padding: 10px 14px;
-      border-radius: 12px;
-      color: var(--muted);
-      cursor: pointer;
-    }
+.quantity-btn {
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.1);
+  color: var(--muted);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 
-    /* small screen */
-    @media (max-width:980px){
-      .container{grid-template-columns:1fr;}
-      .menu-grid{grid-template-columns:1fr}
-      .thumb{width:90px;height:70px}
-      .search{min-width:unset;width:100%}
-    }
+.quantity {
+  font-weight: 600;
+  color: #000;
+}
 
-    /* subtle animated gradient line */
-    .gold-line{height:4px;border-radius:999px;background:linear-gradient(90deg,var(--gold1),var(--gold2));box-shadow:0 8px 30px rgba(212,175,55,0.08);margin-top:6px}
+.remove-item {
+  background: transparent;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  margin-left: 12px;
+}
 
-    /* print */
-    @media print{body{background:white;color:black} .cover-hero, .controls{display:none} .cart-container{display:none}}
-  </style>
+.cart-empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 20px 0;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  font-weight: 600;
+  font-size: 18px;
+  color: #000;
+}
+
+.total-amount {
+  color: var(--gold2);
+}
+
+.cart-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-whatsapp {
+  background: #25D366;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+
+.btn-clear {
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 10px 14px;
+  border-radius: 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+/* --------------------
+   Responsive
+-------------------- */
+@media (max-width: 980px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+  .thumb {
+    width: 90px;
+    height: 70px;
+  }
+  .search {
+    min-width: unset;
+    width: 100%;
+  }
+}
+
+</style>
+
+
+
+
+
+
 </head>
 <body>
   <div class="container">
@@ -353,24 +756,23 @@ body::before {
             <input id="search" placeholder="Search dishes, ingredients..." />
           </div>
 
-          <div class="tabs" role="tablist">
+          <div class="tabs-container">
             <button class="tab active" data-cat="all">All</button>
-            <button class="tab" data-cat="pizza">Pizza</button>
+            <button class="tab" data-cat="pizza">Pizza & Fast Food</button>
             <button class="tab" data-cat="paratha">Paratha</button>
-            <button class="tab" data-cat="chinese">Chinese</button>
-            <button class="tab" data-cat="non-veg">Chinese non-veg</button>
-            <button class="tab" data-cat="snacks">Starters</button>
+            <button class="tab" data-cat="chinese">Chinese Veg</button>
+            <button class="tab" data-cat="non-veg">Chinese Non-Veg</button>
+            <button class="tab" data-cat="snacks">Starters & Snacks</button>
             <button class="tab" data-cat="biryani">Biryani</button>
-            <button class="tab" data-cat="veg">Veg Dishes</button>
-            <button class="tab" data-cat="nonveg">Chicken</button>
-            <button class="tab" data-cat="mutton">Mutton</button>
-            <button class="tab" data-cat="Fish">Fish</button>
-            <button class="tab" data-cat="soup">Soup</button>
-            <button class="tab" data-cat="tandoori">Tandoori/Kabab</button>
+            <button class="tab" data-cat="veg">Veg Main Course</button>
+            <button class="tab" data-cat="nonveg">Chicken Dishes</button>
+            <button class="tab" data-cat="mutton">Mutton Dishes</button>
+            <button class="tab" data-cat="fish">Fish Dishes</button>
+            <button class="tab" data-cat="soup">Soups</button>
+            <button class="tab" data-cat="tandoori">Tandoori & Kabab</button>
             <button class="tab" data-cat="thali">Thali</button>
-            <button class="tab" data-cat="Rice">Rice/Roti</button>
-            <button class="tab" data-cat="beverages">Bevrages</button>
-
+            <button class="tab" data-cat="rice">Rice & Breads</button>
+            <button class="tab" data-cat="beverages">Beverages</button>
           </div>
         </div>
       </div>
@@ -429,267 +831,259 @@ body::before {
 
   <script>
    const data = [
+      //Pizza & Fast Food
+      {id:1,cat:'pizza',name:' • Veg Cheese Pizza',desc:'Delicious cheese pizza with fresh vegetables',price:'₹149',tags:['Cheesy','Popular'],img:'img/veg.png'},
+      {id:2,cat:'pizza',name:' • Paneer Tikka Pizza',desc:'Paneer tikka topped pizza with Indian spices',price:'₹199',tags:['Spicy','Paneer'],img:'img/paneer tikka pizza.png'},
+      {id:4,cat:'pizza',name:' • Cheese Volcano',desc:'Cheese burst pizza with special sauce',price:'₹230',tags:['Cheesy','Special'],img:'img/paneer tikka.png'},
+      {id:6,cat:'pizza',name:' • Mushroom Pizza',desc:'Fresh mushrooms with cheese and herbs',price:'₹199',tags:['Mushroom','Vegetarian'],img:'img/mashroom.png'},
+      {id:7,cat:'pizza',name:' • Cheese Margherita',desc:'Classic margherita with extra cheese',price:'₹229',tags:['Classic','Cheesy'],img:'img/margarita.png'},
+      {id:8,cat:'pizza',name:' • Cheese Pizza',desc:'Simple and delicious cheese pizza',price:'₹130',tags:['Basic','Cheesy'],img:'img/cheese.png'},
+      {id:9,cat:'pizza',name:' • Corn Cheese Pizza',desc:'Sweet corn with mozzarella cheese',price:'₹150',tags:['Corn','Cheesy'],img:'img/corn cheese.png'},
+      {id:10,cat:'pizza',name:' • Tandoori Paneer Pizza',desc:'Tandoori flavored paneer pizza',price:'₹160',tags:['Spicy','Paneer'],img:'img/tandoori.png'},
+      {id:11,cat:'pizza',name:' • Cheese Pizza Puff',desc:'Crispy pizza puff with cheese filling',price:'₹150',tags:['Snack','Cheesy'],img:'img/cheese margarita.png'},
+      {id:12,cat:'pizza',name:' • Schezwan Cheese Pizza',desc:'Spicy schezwan sauce with cheese',price:'₹149',tags:['Spicy','Chinese'],img:'img/schezwan.png'},
+      {id:13,cat:'pizza',name:' • Classic Onion Pizza',desc:'Onion topped classic pizza',price:'₹110',tags:['Simple','Onion'],img:'img/classic.png'},
+      {id:14,cat:'pizza',name:' • Veg Burger',desc:'Vegetable burger with special sauce',price:'₹80',tags:['Burger','Snack'],img:'img/vegg.png'},
+      {id:15,cat:'pizza',name:' • Cheese Burger',desc:'Cheese filled vegetable burger',price:'₹99',tags:['Cheesy','Burger'],img:'img/cheese burger.png'},
+      {id:16,cat:'pizza',name:' • Mac Cheese Burger',desc:'Special mac cheese burger',price:'₹80',tags:['Cheesy','Special'],img:'img/mac.png'},
+      {id:17,cat:'pizza',name:' • Korean Cheese Bun',desc:'Soft Korean style cheese bun',price:'₹49',tags:['Korean','Snack'],img:'img/korean.png'},
+      {id:18,cat:'pizza',name:' • Garlic Bread',desc:'Freshly baked garlic bread',price:'₹40',tags:['Garlic','Snack'],img:'img/garlic.png'},
+      {id:19,cat:'pizza',name:' • Egg Cheese Roll',desc:'Egg and cheese filled roll',price:'₹40',tags:['Egg','Snack'],img:'img/eggs cheese.png'},
 
-   //Pizza
-      {id:1,cat:'pizza',name:' • veg cheese pizza',desc:'Spicy sprouted lentils curry served with pav',price:'₹149',tags:['Spicy','Popular'],img:'img/veg.png'},
-      {id:2,cat:'pizza',name:' • paneer tikka pizza',desc:'Spicy potato fritter in bun with chutneys',price:'₹199',tags:['Street Food','Snack'],img:'img/paneer tikka pizza.png'},
-     // {id:3,cat:'pizza',name:' • paneer tikka pizza',desc:'Spicy potato fritter in bun with chutneys',price:'₹199',tags:['Street Food','Snack'],img:'img/paneer tikka pizza.png'},
-      {id:4,cat:'pizza',name:' • cheese volcano ',desc:'Spicy potato fritter in bun with chutneys',price:'₹230',tags:['Street Food','Snack'],img:'img/paneer tikka.png'},
-     // {id:5,cat:'pizza',name:' • paneer tikka pizza',desc:'Spicy potato fritter in bun with chutneys',price:'₹199',tags:['Street Food','Snack'],img:'img/paneer tikka.png'},
-      {id:6,cat:'pizza',name:' • mashroom pizza',desc:'Spicy potato fritter in bun with chutneys',price:'₹199',tags:['Street Food','Snack'],img:'img/mashroom.png'},
-      {id:7,cat:'pizza',name:' • cheese margarita pizza',desc:'Spicy sprouted lentils curry served with pav',price:'₹229',tags:['Spicy','Popular'],img:'img/margarita.png'},
-      {id:8,cat:'pizza',name:' • cheese margarita pizza',desc:'Spicy sprouted lentils curry served with pav',price:'₹130',tags:['Spicy','Popular'],img:'img/cheese.png'},
-      {id:9,cat:'pizza',name:' • corn cheese pizza',desc:'Spicy sprouted lentils curry served with pav',price:'₹150',tags:['Spicy','Popular'],img:'img/corn cheese.png'},
-      {id:10,cat:'pizza',name:' • tandoori paneer',desc:'Spicy sprouted lentils curry served with pav',price:'₹160',tags:['Spicy','Popular'],img:'img/tandoori.png'},
-      {id:11,cat:'pizza',name:' •  cheese pizza puff',desc:'Spicy sprouted lentils curry served with pav',price:'₹150',tags:['Spicy','Popular'],img:'img/cheese margarita.png'},
-      {id:12,cat:'pizza',name:' •  schezwan cheese',desc:'Spicy sprouted lentils curry served with pav',price:'₹149',tags:['Spicy','Popular'],img:'img/schezwan.png'},
-      {id:13,cat:'pizza',name:' •  classic onion',desc:'Spicy sprouted lentils curry served with pav',price:'₹110',tags:['Spicy','Popular'],img:'img/classic.png'},
-      {id:14,cat:'pizza',name:' •  veg burger ',desc:'Spicy sprouted lentils curry served with pav',price:'₹80',tags:['Spicy','Popular'],img:'img/vegg.png'},
-      {id:15,cat:'pizza',name:' •  cheese burger ',desc:'Spicy sprouted lentils curry served with pav',price:'₹99',tags:['Spicy','Popular'],img:'img/cheese burger.png'},
-      {id:16,cat:'pizza',name:' •   mac cheese burger  ',desc:'Spicy sprouted lentils curry served with pav',price:'₹80',tags:['Spicy','Popular'],img:'img/mac.png'},
-      {id:17,cat:'pizza',name:' •  korean cheese bun ',desc:'Spicy sprouted lentils curry served with pav',price:'₹49',tags:['Spicy','Popular'],img:'img/korean.png'},
-      {id:18,cat:'pizza',name:' •  garlic bread  ',desc:'Spicy sprouted lentils curry served with pav',price:'₹40',tags:['Spicy','Popular'],img:'img/garlic.png'},
-      {id:19,cat:'pizza',name:' • eggs cheese roll   ',desc:'Spicy sprouted lentils curry served with pav',price:'₹40',tags:['Spicy','Popular'],img:'img/eggs cheese.png'},
+      //Paratha
+      {id:20,cat:'paratha',name:' • Paneer Paratha',desc:'Stuffed paneer paratha with butter',price:'₹159',tags:['Paneer','Popular'],img:'img/zzz.png'},
+      {id:21,cat:'paratha',name:' • Aloo Paratha',desc:'Potato stuffed paratha',price:'₹89',tags:['Aloo','Traditional'],img:'img/yyy.png'},
+      {id:22,cat:'paratha',name:' • Laccha Paratha',desc:'Layered flaky paratha',price:'₹49',tags:['Layered','Buttery'],img:'img/b.png'},
+      {id:23,cat:'paratha',name:' • Mix Paratha',desc:'Mixed vegetable paratha',price:'₹149',tags:['Mixed','Special'],img:'img/mix.png'},
+      {id:24,cat:'paratha',name:' • Methi Paratha',desc:'Fenugreek flavored paratha',price:'₹139',tags:['Methi','Healthy'],img:'img/methi.png'},
+      {id:25,cat:'paratha',name:' • Cheese Paratha',desc:'Cheese stuffed paratha',price:'₹169',tags:['Cheese','Rich'],img:'img/cheese.png'},
+      {id:26,cat:'paratha',name:' • Gobi Paratha',desc:'Cauliflower stuffed paratha',price:'₹119',tags:['Gobi','Vegetarian'],img:'img/gobi.png'},
+      {id:27,cat:'paratha',name:' • Palak Paratha',desc:'Spinach flavored paratha',price:'₹129',tags:['Palak','Healthy'],img:'img/palak.png'},
+      {id:28,cat:'paratha',name:' • Schezwan Paratha',desc:'Spicy schezwan paratha',price:'₹159',tags:['Spicy','Chinese'],img:'img/schezwan.png'},
 
-    //Paratha
-    
-      {id:1, cat:'paratha', name:' • paneer paratha', desc:'Delicious paratha', price:'₹159', tags:['Popular'], img:'img/zzz.png'},
-      {id:2, cat:'paratha', name:' • alu paratha', desc:'Delicious paratha', price:'₹89', tags:[], img:'img/yyy.png'},
-      {id:3, cat:'paratha', name:' • laccha paratha', desc:'Delicious paratha', price:'₹49', tags:[], img:'img/b.png'},
-      {id:4, cat:'paratha', name:' • mix paratha', desc:'Delicious paratha', price:'₹149', tags:[], img:'img/mix.png'},
-      {id:5, cat:'paratha', name:' • methi paratha', desc:'Delicious paratha', price:'₹139', tags:[], img:'img/methi.png'},
-      {id:6, cat:'paratha', name:' • cheese paratha', desc:'Delicious paratha', price:'₹169', tags:['Cheese'], img:'img/cheese.png'},
-      {id:7, cat:'paratha', name:' • gobi paratha', desc:'Delicious paratha', price:'₹119', tags:[], img:'img/gobi.png'},
-      {id:8, cat:'paratha', name:' • palak paratha', desc:'Delicious paratha', price:'₹129', tags:[], img:'img/palak.png'},
-      {id:9, cat:'paratha', name:' • schezwan paratha', desc:'Delicious paratha', price:'₹159', tags:['Spicy'], img:'img/schezwan.png'},
+      //Chinese Veg
+      {id:29,cat:'chinese',name:' • Paneer Chilly',desc:'Spicy paneer with capsicum',price:'₹180',tags:['Spicy','Paneer'],img:'img/www.png'},
+      {id:30,cat:'chinese',name:' • Soyabin Chilly',desc:'Spicy soybean with vegetables',price:'₹120',tags:['Spicy','Healthy'],img:'img/soyabin.png'},
+      {id:31,cat:'chinese',name:' • Mushroom Chilly',desc:'Mushroom in spicy sauce',price:'₹170',tags:['Spicy','Mushroom'],img:'img/mashrum.png'},
+      {id:32,cat:'chinese',name:' • Potato Chilly',desc:'Crispy potato in spicy sauce',price:'₹110',tags:['Spicy','Potato'],img:'img/potato.png'},
+      {id:33,cat:'chinese',name:' • Paneer Tikka',desc:'Paneer tikka appetizer',price:'₹220',tags:['Paneer','Popular'],img:'img/paneery.png'},
+      {id:34,cat:'chinese',name:' • Paneer Pakoda',desc:'Crispy paneer fritters',price:'₹190',tags:['Crispy','Paneer'],img:'img/paneerz.png'},
+      {id:35,cat:'chinese',name:' • Paneer Bhurji',desc:'Scrambled paneer dish',price:'₹190',tags:['Paneer','Scrambled'],img:'img/paneerw.png'},
+      {id:36,cat:'chinese',name:' • Veg Manchurian',desc:'Vegetable balls in sauce',price:'₹160',tags:['Popular','Gravy'],img:'img/veg manchurian.png'},
+      {id:37,cat:'chinese',name:' • Paneer Special',desc:'Special paneer preparation',price:'₹220',tags:['Special','Paneer'],img:'img/paneera.png'},
+      {id:38,cat:'chinese',name:' • Gobi Manchurian',desc:'Cauliflower in manchurian',price:'₹149',tags:['Cauliflower','Spicy'],img:'img/gobia.png'},
+      {id:39,cat:'chinese',name:' • Veg Hakka Noodles',desc:'Stir-fried hakka noodles',price:'₹199',tags:['Noodles','Popular'],img:'img/mmmm.png'},
+      {id:40,cat:'chinese',name:' • Paneer Manchurian',desc:'Paneer in manchurian style',price:'₹199',tags:['Paneer','Spicy'],img:'img/paneerd.png'},
+      {id:41,cat:'chinese',name:' • Veg 65',desc:'Spicy vegetable appetizer',price:'₹119',tags:['Spicy','Appetizer'],img:'img/veg65.png'},
+      {id:42,cat:'chinese',name:' • Veg Crunchy',desc:'Crispy vegetable dish',price:'₹179',tags:['Crispy','Special'],img:'img/veg crunchy.png'},
+      {id:43,cat:'chinese',name:' • Veg Crispy',desc:'Crispy vegetable preparation',price:'₹179',tags:['Crispy','Vegetarian'],img:'img/vegz.png'},
+      {id:44,cat:'chinese',name:' • Baby Corn Chilly',desc:'Spicy baby corn dish',price:'₹129',tags:['Spicy','Corn'],img:'img/babycornz.png'},
+      {id:45,cat:'chinese',name:' • Schezwan Noodles',desc:'Spicy schezwan noodles',price:'₹199',tags:['Spicy','Noodles'],img:'img/schezwanz.png'},
+      {id:46,cat:'chinese',name:' • Veg Fried Rice',desc:'Classic vegetable fried rice',price:'₹169',tags:['Rice','Popular'],img:'img/vegzz.png'},
+      {id:47,cat:'chinese',name:' • Schezwan Fried Rice',desc:'Spicy schezwan fried rice',price:'₹199',tags:['Spicy','Rice'],img:'img/schezwanzz.png'},
+      {id:48,cat:'chinese',name:' • Triple Fried Rice',desc:'Special triple fried rice',price:'₹210',tags:['Special','Rice'],img:'img/tripplezz.png'},
 
-      //Chinese veg
-      
-  {id:10, cat:'chinese', name:' • pancer chilly', desc:'Spicy Chinese dish', price:'₹180', tags:['Spicy'], img:'img/www.png'},
-  {id:11, cat:'chinese', name:' • soyabin chilly', desc:'Spicy Chinese dish', price:'₹120', tags:['Spicy'], img:'img/soyabin.png'},
-  {id:12, cat:'chinese', name:' • mashrum chilly', desc:'Spicy Chinese dish', price:'₹170', tags:['Spicy'], img:'img/mashrum.png'},
-  {id:13, cat:'chinese', name:' • potato chilly', desc:'Spicy Chinese dish', price:'₹110', tags:['Spicy'], img:'img/potato.png'},
-  {id:14, cat:'chinese', name:' • pancer tikka', desc:'Delicious appetizer', price:'₹220', tags:['Popular'], img:'img/paneery.png'},
-  {id:15, cat:'chinese', name:' • pancer pakoda', desc:'Crispy snack', price:'₹190', tags:[], img:'img/paneerz.png'},
-  {id:16, cat:'chinese', name:' • pancer bhurji', desc:'Scrambled paneer dish', price:'₹190', tags:[], img:'img/paneerw.png'},
-  {id:17, cat:'chinese', name:' • veg manchurian', desc:'Classic Chinese dish', price:'₹160', tags:['Popular'], img:'img/veg manchurian.png'},
-  {id:18, cat:'chinese', name:' • pancer sathe', desc:'Paneer specialty', price:'₹220', tags:[], img:'img/paneera.png'},
-  {id:19, cat:'chinese', name:' • gobi manchurian', desc:'Cauliflower dish', price:'₹149', tags:[], img:'img/gobia.png'},
-  {id:20, cat:'chinese', name:' • veg hakka noodles', desc:'Stir-fried noodles', price:'₹199', tags:[], img:'img/mmmm.png'},
-  {id:21, cat:'chinese', name:' • pancer manchurian', desc:'Paneer in manchurian style', price:'₹199', tags:[], img:'img/paneerd.png'},
-  {id:22, cat:'chinese', name:' • veg 65', desc:'Spicy appetizer', price:'₹119', tags:['Spicy'], img:'img/veg65.png'},
-  {id:23, cat:'chinese', name:' • veg grunchy', desc:'Crispy vegetable dish', price:'₹179', tags:[], img:'img/veg crunchy.png'},
-  {id:24, cat:'chinese', name:' • veg crispy', desc:'Crispy vegetable dish', price:'₹179', tags:[], img:'img/vegz.png'},
-  {id:25, cat:'chinese', name:' • babycorn chilly', desc:'Spicy baby corn', price:'₹129', tags:['Spicy'], img:'img/babycornz.png'},
-  {id:26, cat:'chinese', name:' • schezwan noodles', desc:'Spicy noodles', price:'₹199', tags:['Spicy'], img:'img/schezwanz.png'},
-  {id:27, cat:'chinese', name:' • veg fried rice', desc:'Classic fried rice', price:'₹169', tags:[], img:'img/vegzz.png'},
-  {id:28, cat:'chinese', name:' • schezwan fried rice', desc:'Spicy fried rice', price:'₹199', tags:['Spicy'], img:'img/schezwanzz.png'},
-  {id:29, cat:'chinese', name:' • tripple fried rice', desc:'Special fried rice', price:'₹210', tags:[], img:'img/tripplezz.png'},
+      //Chinese Non-Veg
+      {id:49,cat:'non-veg',name:' • Chicken Chilly',desc:'Spicy chicken with vegetables',price:'₹199',tags:['Spicy','Chicken'],img:'img/chickenz.png'},
+      {id:50,cat:'non-veg',name:' • Chicken 65',desc:'Spicy chicken appetizer',price:'₹199',tags:['Spicy','Popular'],img:'img/chickenzz.png'},
+      {id:51,cat:'non-veg',name:' • Chicken Manchurian',desc:'Chicken balls in sauce',price:'₹229',tags:['Popular','Gravy'],img:'img/chickena.png'},
+      {id:52,cat:'non-veg',name:' • Chicken Fried Rice',desc:'Chicken fried rice',price:'₹239',tags:['Rice','Chicken'],img:'img/chickenb.png'},
+      {id:53,cat:'non-veg',name:' • Egg Fried Rice',desc:'Egg specialty fried rice',price:'₹169',tags:['Rice','Egg'],img:'img/eggs fried.png'},
+      {id:54,cat:'non-veg',name:' • Chicken Chilly Half',desc:'Half portion spicy chicken',price:'₹349',tags:['Spicy','Half'],img:'img/chickenc.png'},
+      {id:55,cat:'non-veg',name:' • Chicken Chilly Full',desc:'Full portion spicy chicken',price:'₹599',tags:['Spicy','Full'],img:'img/chickend.png'},
+      {id:56,cat:'non-veg',name:' • Chicken Lollipop',desc:'Chicken wing appetizer',price:'₹179',tags:['Appetizer','Popular'],img:'img/chickene.png'},
+      {id:57,cat:'non-veg',name:' • Chicken Crispy Half',desc:'Half portion crispy chicken',price:'₹349',tags:['Crispy','Half'],img:'img/chickenf.png'},
+      {id:58,cat:'non-veg',name:' • Egg Omelet',desc:'Fresh egg omelet',price:'₹60',tags:['Egg','Simple'],img:'img/eggsa.png'},
+      {id:59,cat:'non-veg',name:' • Egg Boil Fry',desc:'Boiled egg fry',price:'₹60',tags:['Egg','Fry'],img:'img/eggsb.png'},
+      {id:60,cat:'non-veg',name:' • Egg Bhurji',desc:'Scrambled eggs',price:'₹60',tags:['Egg','Scrambled'],img:'img/eggsc.png'},
 
+      //Starters & Snacks
+      {id:61,cat:'snacks',name:' • Roast Papad',desc:'Roasted papad',price:'₹15',tags:['Crispy','Basic'],img:'img/roastz.png'},
+      {id:62,cat:'snacks',name:' • Masala Papad',desc:'Spiced papad with toppings',price:'₹35',tags:['Spicy','Topped'],img:'img/masalaa.png'},
+      {id:63,cat:'snacks',name:' • Nachani Roast',desc:'Roasted nachani papad',price:'₹20',tags:['Roasted','Traditional'],img:'img/nachania.png'},
+      {id:64,cat:'snacks',name:' • Nachani Fry Papad',desc:'Fried nachani papad',price:'₹30',tags:['Fried','Crispy'],img:'imgnachaniy.png'},
+      {id:65,cat:'snacks',name:' • Papad Chutney',desc:'Papad with chutney',price:'₹80',tags:['Combo','Chutney'],img:'img/papadz.png'},
+      {id:66,cat:'snacks',name:' • Finger Chips',desc:'French fries',price:'₹99',tags:['Crispy','Potato'],img:'img/fingerz.png'},
+      {id:67,cat:'snacks',name:' • Cheese Corn Ball',desc:'Cheesy corn balls',price:'₹179',tags:['Cheesy','Corn'],img:'img/cheesez.png'},
+      {id:68,cat:'snacks',name:' • Chana Fry',desc:'Fried chickpeas',price:'₹119',tags:['Crispy','Chana'],img:'img/chanaz.png'},
+      {id:69,cat:'snacks',name:' • Soyabin Fry',desc:'Fried soybean',price:'₹119',tags:['Crispy','Soyabin'],img:'img/soyabinz.png'},
+      {id:70,cat:'snacks',name:' • Veg Salad',desc:'Fresh vegetable salad',price:'₹49',tags:['Healthy','Fresh'],img:'img/veggg.png'},
+      {id:71,cat:'snacks',name:' • Veg Sandwich',desc:'Vegetable sandwich',price:'₹59',tags:['Sandwich','Fresh'],img:'img/vegy.png'},
+      {id:72,cat:'snacks',name:' • Soyabin Roast',desc:'Roasted soybean',price:'₹120',tags:['Roasted','Healthy'],img:'img/soyabinzz.png'},
+      {id:73,cat:'snacks',name:' • Chana Koliwada',desc:'Spicy chickpea snack',price:'₹150',tags:['Spicy','Chana'],img:'img/chanazz.png'},
+      {id:74,cat:'snacks',name:' • Veg Pakoda',desc:'Mixed vegetable fritters',price:'₹140',tags:['Crispy','Mixed'],img:'img/vegb.png'},
+      {id:75,cat:'snacks',name:' • Paneer Pakoda',desc:'Paneer fritters',price:'₹199',tags:['Crispy','Paneer'],img:'img/paneerc.png'},
+      {id:76,cat:'snacks',name:' • Aloo Pakoda',desc:'Potato fritters',price:'₹110',tags:['Crispy','Aloo'],img:'img/aluz.png'},
+      {id:77,cat:'snacks',name:' • Onion Pakoda',desc:'Onion fritters',price:'₹110',tags:['Crispy','Onion'],img:'img/onionz.png'},
+      {id:78,cat:'snacks',name:' • Palak Pakoda',desc:'Spinach fritters',price:'₹130',tags:['Crispy','Palak'],img:'img/palakz.png'},
 
-  //Chinese Non Veg
-    {id:30, cat:'non-veg', name:' • chicken chilly', desc:'Spicy chicken dish', price:'₹199', tags:['Spicy'], img:'img/chickenz.png'},
-  {id:31, cat:'non-veg', name:' • chicken 65', desc:'Spicy appetizer', price:'₹199', tags:['Spicy'], img:'img/chickenzz.png'},
-  {id:32, cat:'non-veg', name:' • chicken manchurian', desc:'Classic Chinese dish', price:'₹229', tags:['Popular'], img:'img/chickena.png'},
-  {id:33, cat:'non-veg', name:' • chicken fried rice', desc:'Flavorful fried rice', price:'₹239', tags:[], img:'img/chickenb.png'},
-  {id:34, cat:'non-veg', name:' • eggs fried rice', desc:'Egg specialty rice', price:'₹169', tags:[], img:'img/eggs fried.png'},
-  {id:35, cat:'non-veg', name:' • chicken chilly half', desc:'Half portion spicy chicken', price:'₹349', tags:['Spicy'], img:'img/chickenc.png'},
-  {id:36, cat:'non-veg', name:' • chicken chilly full', desc:'Full portion spicy chicken', price:'₹599', tags:['Spicy'], img:'img/chickend.png'},
-  {id:37, cat:'non-veg', name:' • chicken lolipop', desc:'Chicken appetizer', price:'₹179', tags:['Popular'], img:'img/chickene.png'},
-  {id:38, cat:'non-veg', name:' • chicken crispy half', desc:'Half portion crispy chicken', price:'₹349', tags:[], img:'img/chickenf.png'},
-  {id:39, cat:'non-veg', name:' • eggs omelet', desc:'Egg dish', price:'₹60', tags:[], img:'img/eggsa.png'},
-  {id:40, cat:'non-veg', name:' • eggs boil fry', desc:'Egg specialty', price:'₹60', tags:[], img:'img/eggsb.png'},
-  {id:41, cat:'non-veg', name:' • eggs bhurji', desc:'Scrambled eggs', price:'₹60', tags:[], img:'img/eggsc.png'},
+      //Biryani
+      {id:79,cat:'biryani',name:' • Egg Dum Biryani',desc:'Egg dum biryani with spices',price:'₹199',tags:['Egg','Dum'],img:'img/eggss.png'},
+      {id:80,cat:'biryani',name:' • Veg Dum Biryani',desc:'Vegetable dum biryani',price:'₹190',tags:['Vegetarian','Dum'],img:'img/vegzzz.png'},
+      {id:81,cat:'biryani',name:' • Chicken Dum Biryani',desc:'Chicken dum biryani',price:'₹250',tags:['Chicken','Popular'],img:'img/chickenyyy.png'},
+      {id:82,cat:'biryani',name:' • Chicken Hyderabadi Biryani',desc:'Hyderabadi style chicken biryani',price:'₹280',tags:['Spicy','Hyderabadi'],img:'img/chickenzzz.png'},
+      {id:83,cat:'biryani',name:' • Chicken Arabian Biryani',desc:'Arabian style chicken biryani',price:'₹799/1499',tags:['Special','Arabian'],img:'img/chickenaa.png'},
+      {id:84,cat:'biryani',name:' • Chicken Tikka Biryani',desc:'Chicken tikka biryani',price:'₹599/1199',tags:['Tikka','Popular'],img:'img/chickenbb.png'},
+      {id:85,cat:'biryani',name:' • Chicken Biryani 1kg',desc:'1kg chicken biryani',price:'₹999',tags:['Family','Large'],img:'img/chickencc.png'},
+      {id:86,cat:'biryani',name:' • Chicken Biryani 500gm',desc:'500gm chicken biryani',price:'₹549',tags:['Medium','Chicken'],img:'img/chickendd.png'},
+      {id:87,cat:'biryani',name:' • Mutton Dum Biryani',desc:'Mutton dum biryani',price:'₹349',tags:['Mutton','Premium'],img:'img/muttone.png'},
+      {id:88,cat:'biryani',name:' • Mutton Tikka Biryani',desc:'Mutton tikka biryani',price:'₹900/1699',tags:['Tikka','Premium'],img:'img/muttonf.png'},
+      {id:89,cat:'biryani',name:' • Mutton Hyderabadi Biryani',desc:'Hyderabadi mutton biryani',price:'₹390',tags:['Spicy','Premium'],img:'img/muttong.png'},
+      {id:90,cat:'biryani',name:' • Mutton Arabic Biryani',desc:'Arabic style mutton biryani',price:'₹3499',tags:['Special','Premium'],img:'img/muttonh.png'},
+      {id:91,cat:'biryani',name:' • Mutton Biryani 500gm',desc:'500gm mutton biryani',price:'₹819',tags:['Medium','Premium'],img:'img/muttonj.png'},
+      {id:92,cat:'biryani',name:' • Mutton Biryani 1kg',desc:'1kg mutton biryani',price:'₹1549',tags:['Family','Premium'],img:'img/muttoni.png'},
 
-//Starters
+      //Veg Main Course
+      {id:93,cat:'veg',name:' • Tawa Pitla',desc:'Special rice preparation',price:'₹120',tags:['Traditional','Rice'],img:'img/tawaa.png'},
+      {id:94,cat:'veg',name:' • Tawa Thepla',desc:'Special thepla preparation',price:'₹100',tags:['Traditional','Thepla'],img:'img/tawab.png'},
+      {id:95,cat:'veg',name:' • Dal Khichdi',desc:'Lentil and rice comfort food',price:'₹160',tags:['Comfort','Healthy'],img:'img/dalc.png'},
+      {id:96,cat:'veg',name:' • Dal Fry',desc:'Fried lentil curry',price:'₹110',tags:['Dal','Basic'],img:'img/dald.png'},
+      {id:97,cat:'veg',name:' • Dal Tadka',desc:'Tempered lentil curry',price:'₹130',tags:['Dal','Tadka'],img:'img/dake.png'},
+      {id:98,cat:'veg',name:' • Baingan Bharta',desc:'Mashed eggplant curry',price:'₹120',tags:['Baingan','Traditional'],img:'img/bainganf.png'},
+      {id:99,cat:'veg',name:' • Baingan Masala',desc:'Eggplant in spicy gravy',price:'₹120',tags:['Baingan','Spicy'],img:'img/bainganff.png'},
+      {id:100,cat:'veg',name:' • Chana Curry',desc:'Chickpea curry',price:'₹130',tags:['Chana','Curry'],img:'img/chanag.png'},
+      {id:101,cat:'veg',name:' • Green Peas Curry',desc:'Peas in gravy',price:'₹140',tags:['Peas','Gravy'],img:'img/greenh.png'},
+      {id:102,cat:'veg',name:' • Soyabin Curry',desc:'Soybean curry',price:'₹120',tags:['Soyabin','Healthy'],img:'img/soyabini.png'},
+      {id:103,cat:'veg',name:' • Soyabin Fry',desc:'Fried soybean',price:'₹120',tags:['Soyabin','Crispy'],img:'img/soyabinj.png'},
+      {id:104,cat:'veg',name:' • Soyabin Roast',desc:'Roasted soybean',price:'₹120',tags:['Soyabin','Roasted'],img:'img/saoabink.png'},
+      {id:105,cat:'veg',name:' • Matki Masala',desc:'Moth bean curry',price:'₹130',tags:['Matki','Traditional'],img:'img/matkil.png'},
+      {id:106,cat:'veg',name:' • Aloo Gobi',desc:'Potato cauliflower curry',price:'₹130',tags:['Aloo','Gobi'],img:'img/alum.png'},
+      {id:107,cat:'veg',name:' • Aloo Mutter',desc:'Potato peas curry',price:'₹160',tags:['Aloo','Mutter'],img:'img/alun.png'},
+      {id:108,cat:'veg',name:' • Aloo Palak',desc:'Potato spinach curry',price:'₹150',tags:['Aloo','Palak'],img:'img/aluo.png'},
+      {id:109,cat:'veg',name:' • Aloo Jeera',desc:'Cumin potato curry',price:'₹140',tags:['Aloo','Jeera'],img:'img/alup.png'},
+      {id:110,cat:'veg',name:' • Lasooni Plain',desc:'Garlic curry',price:'₹150',tags:['Garlic','Spicy'],img:'img/lasoonin.png'},
+      {id:111,cat:'veg',name:' • Mushroom Masala',desc:'Mushroom in spicy gravy',price:'₹190',tags:['Mushroom','Spicy'],img:'img/mashroomp.png'},
+      {id:112,cat:'veg',name:' • Methi Masala',desc:'Fenugreek curry',price:'₹150',tags:['Methi','Healthy'],img:'img/methia.png'},
+      {id:113,cat:'veg',name:' • Malai Methi',desc:'Creamy fenugreek curry',price:'₹170',tags:['Creamy','Methi'],img:'img/malaib.png'},
+      {id:114,cat:'veg',name:' • Mutter Malai Methi',desc:'Peas in creamy fenugreek gravy',price:'₹190',tags:['Creamy','Peas'],img:'img/mutterc.png'},
+      {id:115,cat:'veg',name:' • Lasooni Methi',desc:'Garlic fenugreek curry',price:'₹170',tags:['Garlic','Methi'],img:'img/lasoonin.png'},
+      {id:116,cat:'veg',name:' • Shev Bhaji',desc:'Vegetable curry with noodles',price:'₹100',tags:['Shev','Traditional'],img:'img/shevc.png'},
+      {id:117,cat:'veg',name:' • Shev Tomato',desc:'Tomato curry with noodles',price:'₹120',tags:['Shev','Tomato'],img:'img/sheva.png'},
+      {id:118,cat:'veg',name:' • Dudh Shev Bhaji',desc:'Creamy noodle curry',price:'₹150',tags:['Creamy','Shev'],img:'img/dudhb.png'},
+      {id:119,cat:'veg',name:' • Shevga Masala',desc:'Drumstick curry',price:'₹130',tags:['Drumstick','Curry'],img:''},
+      {id:120,cat:'veg',name:' • Shevga Fry',desc:'Fried drumstick',price:'₹130',tags:['Drumstick','Crispy'],img:''},
+      {id:121,cat:'veg',name:' • Shevga Handi',desc:'Drumstick special preparation',price:'₹250/499',tags:['Special','Handi'],img:''},
+      {id:122,cat:'veg',name:' • Paneer Masala',desc:'Paneer in spicy gravy',price:'₹180',tags:['Paneer','Spicy'],img:'img/paneeraa.png'},
+      {id:123,cat:'veg',name:' • Paneer Tawa',desc:'Paneer tawa special',price:'₹260',tags:['Paneer','Special'],img:'img/paneerb.png'},
+      {id:124,cat:'veg',name:' • Paneer Butter Masala',desc:'Creamy paneer curry',price:'₹199',tags:['Creamy','Popular'],img:'img/psneercc.png'},
+      {id:125,cat:'veg',name:' • Paneer Palak',desc:'Paneer in spinach gravy',price:'₹180',tags:['Paneer','Palak'],img:'img/paneeree.png'},
+      {id:126,cat:'veg',name:' • Mutter Paneer',desc:'Paneer with peas in gravy',price:'₹220',tags:['Paneer','Peas'],img:'img/mutterff.png'},
+      {id:127,cat:'veg',name:' • Paneer Kolhapuri',desc:'Spicy kolhapuri style paneer',price:'₹230',tags:['Spicy','Kolhapuri'],img:'img/paneergg.png'},
+      {id:128,cat:'veg',name:' • Paneer Kadhai',desc:'Paneer in kadhai gravy',price:'₹260',tags:['Paneer','Kadhai'],img:'img/paneertt.png'},
+      {id:129,cat:'veg',name:' • Paneer Tikka Masala',desc:'Paneer tikka in rich gravy',price:'₹220',tags:['Paneer','Popular'],img:'img/paneerrr.png'},
+      {id:130,cat:'veg',name:' • Paneer Patiyala',desc:'Special patiyala paneer',price:'₹260',tags:['Special','Paneer'],img:'img/paneerrrr.png'},
+      {id:131,cat:'veg',name:' • Paneer Pasanda',desc:'Rich paneer dish',price:'₹270',tags:['Rich','Paneer'],img:'img/paneervv.png'},
+      {id:132,cat:'veg',name:' • Veg Maratha',desc:'Maharashtrian style vegetables',price:'₹220',tags:['Spicy','Maharashtrian'],img:'img/vega.png'},
+      {id:133,cat:'veg',name:' • Veg Tawa',desc:'Tawa cooked vegetables',price:'₹250',tags:['Tawa','Special'],img:'img/veg....png'},
+      {id:134,cat:'veg',name:' • Veg Bhuna',desc:'Dry spiced vegetables',price:'₹190',tags:['Dry','Spicy'],img:'img/vegbb.png'},
+      {id:135,cat:'veg',name:' • Veg Kolhapuri',desc:'Spicy kolhapuri vegetables',price:'₹170',tags:['Spicy','Kolhapuri'],img:'img/vegc.png'},
+      {id:136,cat:'veg',name:' • Veg Jaipuri',desc:'Rajasthani style vegetables',price:'₹220',tags:['Rajasthani','Special'],img:'img/vegd.png'},
+      {id:137,cat:'veg',name:' • Veg Kadhai',desc:'Kadhai style vegetables',price:'₹240',tags:['Kadhai','Special'],img:'img/vege.png'},
+      {id:138,cat:'veg',name:' • Veg Angara',desc:'Charcoal flavored vegetables',price:'₹260',tags:['Smoky','Special'],img:'img/vegff.png'},
+      {id:139,cat:'veg',name:' • Veg Khima',desc:'Minced vegetable dish',price:'₹270',tags:['Minced','Special'],img:'img/vegggg.png'},
+      {id:140,cat:'veg',name:' • Veg Tufani',desc:'Special mixed vegetables',price:'₹280',tags:['Special','Mixed'],img:'img/vegh.png'},  
+      {id:141,cat:'veg',name:' • Veg Patiyala',desc:'Special patiyala vegetables',price:'₹270',tags:['Special','Patiyala'],img:'img/vegh.png'},
+      {id:142,cat:'veg',name:' • Veg Malai Kofta',desc:'Vegetable balls in creamy gravy',price:'₹280',tags:['Creamy','Popular'],img:'img/vegj.png'},
+      {id:143,cat:'veg',name:' • Veg Paneer Angara',desc:'Charcoal flavored paneer vegetables',price:'₹280',tags:['Smoky','Special'],img:'img/vegkk.png'},
 
-  {id:42, cat:'snacks', name:' • roast papad', desc:'Crispy papad', price:'₹15', tags:['Crispy'], img:'img/roastz.png'},
-  {id:43, cat:'snacks', name:' • masala papad', desc:'Spiced papad', price:'₹35', tags:['Spicy'], img:'img/masalaa.png'},
-  {id:44, cat:'snacks', name:' • nachani roast', desc:'Roasted snack', price:'₹20', tags:[], img:'img/nachania.png'},
-  {id:45, cat:'snacks', name:' • nachani fry papad', desc:'Fried papad', price:'₹30', tags:['Crispy'], img:'imgnachaniy.png'},
-  {id:46, cat:'snacks', name:' • papad chutney', desc:'Papad with chutney', price:'₹80', tags:[], img:'img/papadz.png'},
-  {id:47, cat:'snacks', name:' • finger chips', desc:'French fries', price:'₹99', tags:['Crispy'], img:'img/fingerz.png'},
-  {id:48, cat:'snacks', name:' • cheese corn ball', desc:'Cheesy corn snack', price:'₹179', tags:['Cheese'], img:'img/cheesez.png'},
-  {id:49, cat:'snacks', name:' • chana fry', desc:'Fried chickpeas', price:'₹119', tags:['Crispy'], img:'img/chanaz.png'},
-  {id:50, cat:'snacks', name:' • soyabin fry', desc:'Fried soybean', price:'₹119', tags:['Crispy'], img:'img/soyabinz.png'},
-  {id:51, cat:'snacks', name:' • veg salad', desc:'Fresh vegetable salad', price:'₹49', tags:['Healthy'], img:'img/veggg.png'},
-  {id:52, cat:'snacks', name:' • veg sandwich', desc:'Vegetable sandwich', price:'₹59', tags:[], img:'img/vegy.png'},
-  {id:53, cat:'snacks', name:' • soyabin roast', desc:'Roasted soybean', price:'₹120', tags:[], img:'img/soyabinzz.png'},
-  {id:54, cat:'snacks', name:' • chana koliwada', desc:'Spicy chickpea snack', price:'₹150', tags:['Spicy'], img:'img/chanazz.png'},
-  {id:55, cat:'snacks', name:' • veg pakoda', desc:'Mixed vegetable fritters', price:'₹140', tags:['Crispy'], img:'img/vegb.png'},
-  {id:56, cat:'snacks', name:' • paneer pakoda', desc:'Paneer fritters', price:'₹199', tags:['Crispy'], img:'img/paneerc.png'},
-  {id:57, cat:'snacks', name:' • alu pakoda', desc:'Potato fritters', price:'₹110', tags:['Crispy'], img:'img/aluz.png'},
-  {id:58, cat:'snacks', name:' • onion pakoda', desc:'Onion fritters', price:'₹110', tags:['Crispy'], img:'img/onionz.png'},
-  {id:59, cat:'snacks', name:' • palak pakoda', desc:'Spinach fritters', price:'₹130', tags:['Crispy'], img:'img/palakz.png'},
+      //Chicken Dishes
+      {id:144,cat:'nonveg',name:' • Egg Curry',desc:'Eggs in spicy curry',price:'₹119',tags:['Egg','Spicy'],img:'img/eggsz.png'},
+      {id:145,cat:'nonveg',name:' • Egg Masala',desc:'Eggs in masala gravy',price:'₹139',tags:['Egg','Masala'],img:'img/eggsaa.png'},
+      {id:146,cat:'nonveg',name:' • Chicken Curry',desc:'Chicken in traditional curry',price:'₹179',tags:['Chicken','Traditional'],img:'img/chickenaaa.png'},
+      {id:147,cat:'nonveg',name:' • Chicken Roast',desc:'Roasted chicken preparation',price:'₹165',tags:['Chicken','Roasted'],img:'img/chickenzzzz.png'},
+      {id:148,cat:'nonveg',name:' • Chicken Fry',desc:'Fried chicken dish',price:'₹169',tags:['Chicken','Crispy'],img:'img/chickenyyyy.png'},
+      {id:149,cat:'nonveg',name:' • Chicken Tawa',desc:'Tawa cooked chicken',price:'₹189',tags:['Chicken','Tawa'],img:'img/chickenww.png'},
+      {id:150,cat:'nonveg',name:' • Chicken 2 Piaz',desc:'Special chicken with onions',price:'₹449/699',tags:['Special','Onion'],img:'img/chicken2.png'},
+      {id:151,cat:'nonveg',name:' • Chicken Kharda',desc:'Spicy chicken dish',price:'₹179',tags:['Spicy','Chicken'],img:'img/chickenv.png'},
+      {id:152,cat:'nonveg',name:' • Chicken Tikka Masala',desc:'Chicken tikka in rich gravy',price:'₹219/349/649',tags:['Popular','Tikka'],img:'img/chickenvv.png'},
+      {id:153,cat:'nonveg',name:' • Chicken Dahiwala',desc:'Chicken in yogurt gravy',price:'₹279',tags:['Creamy','Yogurt'],img:'img/chickennn.png'},
+      {id:154,cat:'nonveg',name:' • Butter Chicken',desc:'Creamy butter chicken',price:'₹229/449/799',tags:['Creamy','Popular'],img:'img/butterc.png'},
+      {id:155,cat:'nonveg',name:' • Chicken Handi Half',desc:'Half portion handi chicken',price:'₹349',tags:['Special','Handi'],img:'img/chickenbbb.png'},
+      {id:156,cat:'nonveg',name:' • Chicken Malvani Full',desc:'Full Malvani chicken',price:'₹749',tags:['Spicy','Special'],img:'img/chickenm.png'},
+      {id:157,cat:'nonveg',name:' • Chicken Malvani Half',desc:'Half Malvani chicken',price:'₹399',tags:['Spicy','Malvani'],img:'img/chickenh.png'},
+      {id:158,cat:'nonveg',name:' • Chicken Handi Full',desc:'Full portion handi chicken',price:'₹699',tags:['Special','Handi'],img:'img/chickeng.png'},
 
-    //Biyani
-    
-  {id:121, cat:'biryani', name:' • eggs bum biryani', desc:'Egg dum biryani', price:'₹199', tags:[], img:'img/eggss.png'},
-  {id:122, cat:'biryani', name:' • veg dum biryani', desc:'Vegetable dum biryani', price:'₹190', tags:['Vegetarian'], img:'img/vegzzz.png'},
-  {id:123, cat:'biryani', name:' • chicken dum biryani', desc:'Chicken dum biryani', price:'₹250', tags:['Popular'], img:'img/chickenyyy.png'},
-  {id:124, cat:'biryani', name:' • chicken hyd biryani', desc:'Hyderabadi chicken biryani', price:'₹280', tags:['Spicy'], img:'img/chickenzzz.png'},
-  {id:125, cat:'biryani', name:' • chicken arabian biryani', desc:'Arabian style chicken biryani', price:'₹799/1499', tags:['Special'], img:'img/chickenaa.png'},
-  {id:126, cat:'biryani', name:' • chicken tikka biryani', desc:'Chicken tikka biryani', price:'₹599/1199', tags:['Popular'], img:'img/chickenbb.png'},
-  {id:127, cat:'biryani', name:' • chicken biryani 1kg', desc:'1kg chicken biryani', price:'₹999', tags:[], img:'img/chickencc.png'},
-  {id:128, cat:'biryani', name:' • chicken biryani 500gm', desc:'500gm chicken biryani', price:'₹549', tags:[], img:'img/chickendd.png'},
-  {id:129, cat:'biryani', name:' • mutton dum biryani', desc:'Mutton dum biryani', price:'₹349', tags:['Premium'], img:'img/muttone.png'},
-  {id:130, cat:'biryani', name:' • mutton tikka biryani', desc:'Mutton tikka biryani', price:'₹900/1699', tags:['Premium'], img:'img/muttonf.png'},
-  {id:131, cat:'biryani', name:' • mutton hyd biryani', desc:'Hyderabadi mutton biryani', price:'₹390', tags:['Spicy','Premium'], img:'img/muttong.png'},
-  {id:132, cat:'biryani', name:' • mutton arbi biryani', desc:'Arabic style mutton biryani', price:'₹3499', tags:['Special','Premium'], img:'img/muttonh.png'},
-  {id:133, cat:'biryani', name:' • mutton biryani 500gm', desc:'500gm mutton biryani', price:'₹819', tags:['Premium'], img:'img/muttonj.png'},
-  {id:134, cat:'biryani', name:' • mutton biryani 1kg', desc:'1kg mutton biryani', price:'₹1549', tags:['Premium'], img:'img/muttoni.png'},
+      //Mutton Dishes
+      {id:159,cat:'mutton',name:' • Mutton Fry',desc:'Fried mutton dish',price:'₹250',tags:['Mutton','Crispy'],img:'img/muttonv.png'},
+      {id:160,cat:'mutton',name:' • Mutton Roast',desc:'Roasted mutton preparation',price:'₹250',tags:['Mutton','Roasted'],img:'img/muttonk.png'},
+      {id:161,cat:'mutton',name:' • Mutton Kadhai',desc:'Mutton in kadhai gravy',price:'₹379',tags:['Mutton','Kadhai'],img:'img/muttonnn.png'},
+      {id:162,cat:'mutton',name:' • Mutton Mughlai',desc:'Mughlai style mutton',price:'₹379',tags:['Mutton','Special'],img:'img/muttonu.png'},
+      {id:163,cat:'mutton',name:' • Mutton Curry',desc:'Traditional mutton curry',price:'₹260',tags:['Mutton','Traditional'],img:'img/muttonnm.png'},
+      {id:164,cat:'mutton',name:' • Mutton Dahiwala',desc:'Mutton in yogurt gravy',price:'₹320',tags:['Mutton','Creamy'],img:'img/muttonbb.png'},
+      {id:165,cat:'mutton',name:' • Mutton Bhuna',desc:'Dry spiced mutton',price:'₹330',tags:['Mutton','Spicy'],img:'img/muttonhh.png'},
+      {id:166,cat:'mutton',name:' • Mutton Do Pyaaz',desc:'Special mutton with onions',price:'₹360',tags:['Mutton','Special'],img:'img/muttonvv.png'},
+      {id:167,cat:'mutton',name:' • Mutton Keema',desc:'Minced mutton dish',price:'₹350',tags:['Mutton','Minced'],img:'img/muttony.png'},
+      {id:168,cat:'mutton',name:' • Mutton Malvani',desc:'Malvani style mutton',price:'₹549/999',tags:['Mutton','Spicy'],img:'img/muttoncc.png'},
+      {id:169,cat:'mutton',name:' • Mutton Tikka Masala',desc:'Mutton tikka in rich gravy',price:'₹320',tags:['Mutton','Popular'],img:'img/muttonm.png'},
+      {id:170,cat:'mutton',name:' • Mutton Handi',desc:'Handi cooked mutton',price:'₹450/899',tags:['Mutton','Special'],img:'img/muttonhhh.png'},
 
-  //Veg Dishes
-  {id:72, cat:'veg', name:' • tawa pitila', desc:'Special rice preparation', price:'₹120', tags:[], img:'img/tawaa.png'},
-  {id:73, cat:'veg', name:' • tawa thesa', desc:'Special rice preparation', price:'₹100', tags:[], img:'img/tawab.png'},
-  {id:74, cat:'veg', name:' • dal khichdi', desc:'Lentil and rice dish', price:'₹160', tags:['Comfort Food'], img:'img/dalc.png'},
-  {id:75, cat:'veg', name:' • dal fry', desc:'Fried lentil curry', price:'₹110', tags:[], img:'img/dald.png'},
-    {id:75, cat:'veg', name:' • dal tadka', desc:'Fried lentil curry', price:'₹130', tags:[], img:'img/dake.png'},
-  {id:76, cat:'veg', name:' • baingan bharta', desc:'Mashed eggplant curry', price:'₹120', tags:['Spicy'], img:'img/bainganf.png'},
-  {id:77, cat:'veg', name:' • baingan masala', desc:'Eggplant in spicy gravy', price:'₹120', tags:['Spicy'], img:'img/bainganff.png'},
-  {id:78, cat:'veg', name:' • chana curry', desc:'Chickpea curry', price:'₹130', tags:[], img:'img/chanag.png'},
-  {id:79, cat:'veg', name:' • green peas curry', desc:'Peas in gravy', price:'₹140', tags:[], img:'img/greenh.png'},
-  {id:80, cat:'veg', name:' • soyabin curry', desc:'Soybean curry', price:'₹120', tags:[], img:'img/soyabini.png'},
-  {id:81, cat:'veg', name:' • soyabin fry', desc:'Fried soybean', price:'₹120', tags:['Crispy'], img:'img/soyabinj.png'},
-    {id:81, cat:'veg', name:' • soyabin roast', desc:'Fried soybean', price:'₹120', tags:['Crispy'], img:'img/saoabink.png'},
-  {id:82, cat:'veg', name:' • matki masala', desc:'Moth bean curry', price:'₹130', tags:[], img:'img/matkil.png'},
-  {id:83, cat:'veg', name:' • alu gobi', desc:'Potato cauliflower curry', price:'₹130', tags:[], img:'img/alum.png'},
-  {id:84, cat:'veg', name:' • alu mutter', desc:'Potato peas curry', price:'₹160', tags:[], img:'img/alun.png'},
-  {id:85, cat:'veg', name:' • alu palak', desc:'Potato spinach curry', price:'₹150', tags:[], img:'img/aluo.png'},
-  {id:86, cat:'veg', name:' • alu jira', desc:'Cumin potato curry', price:'₹140', tags:[], img:'img/alup.png'},
-  {id:87, cat:'veg', name:' • lasooni plain', desc:'Garlic curry', price:'₹150', tags:['Spicy'], img:'img/lasoonin.png'},
-  {id:88, cat:'veg', name:' • mashroom masala', desc:'Mushroom in spicy gravy', price:'₹190', tags:['Spicy'], img:'img/mashroomp.png'},
-  {id:89, cat:'veg', name:' • methi massala', desc:'Fenugreek curry', price:'₹150', tags:[], img:'img/methia.png'},
-  {id:90, cat:'veg', name:' • malai methi', desc:'Creamy fenugreek curry', price:'₹170', tags:['Creamy'], img:'img/malaib.png'},
-  {id:91, cat:'veg', name:' • mutter malai methi', desc:'Peas in creamy fenugreek gravy', price:'₹190', tags:['Creamy'], img:'img/mutterc.png'},
-  {id:92, cat:'veg', name:' • lasooni methi', desc:'Garlic fenugreek curry', price:'₹170', tags:['Spicy'], img:'img/lasoonin.png'},
-  {id:93, cat:'veg', name:' • shev bhaji', desc:'Vegetable curry with noodles', price:'₹100', tags:[], img:'img/shevc.png'},
-  {id:94, cat:'veg', name:' • shev tomato', desc:'Tomato curry with noodles', price:'₹120', tags:[], img:'img/sheva.png'},
-  {id:95, cat:'veg', name:' • dudh shev bhaji', desc:'Creamy noodle curry', price:'₹150', tags:['Creamy'], img:'img/dudhb.png'},
-  {id:96, cat:'veg', name:' • shevga masala', desc:'Drumstick curry', price:'₹130', tags:[], img:''},
-  {id:97, cat:'veg', name:' • shevga fry', desc:'Fried drumstick', price:'₹130', tags:['Crispy'], img:''},
-  {id:98, cat:'veg', name:' • shevga handi', desc:'Drumstick special preparation', price:'₹250/499', tags:['Special'], img:''},
-  {id:99, cat:'veg', name:' • pancer masala', desc:'Paneer in spicy gravy', price:'₹180', tags:['Spicy'], img:'img/paneeraa.png'},
-  {id:100, cat:'veg', name:' • pancer tawa', desc:'Paneer tawa special', price:'₹260', tags:['Special'], img:'img/paneerb.png'},
-  {id:101, cat:'veg', name:' • paneer butter masala', desc:'Creamy paneer curry', price:'₹199', tags:['Creamy','Popular'], img:'img/psneercc.png'},
-  {id:102, cat:'veg', name:' • paneer palak', desc:'Paneer in spinach gravy', price:'₹180', tags:[], img:'img/paneeree.png'},
-  {id:103, cat:'veg', name:' • mutter paneer', desc:'Paneer with peas in gravy', price:'₹220', tags:[], img:'img/mutterff.png'},
-  {id:104, cat:'veg', name:' • paneer kolhapuri', desc:'Spicy kolhapuri style paneer', price:'₹230', tags:['Spicy'], img:'img/paneergg.png'},
-  {id:105, cat:'veg', name:' • paneer kadhai', desc:'Paneer in kadhai gravy', price:'₹260', tags:[], img:'img/paneertt.png'},
-  {id:106, cat:'veg', name:' • paneer tikka masala', desc:'Paneer tikka in rich gravy', price:'₹220', tags:['Popular'], img:'img/paneerrr.png'},
-  {id:107, cat:'veg', name:' • paneer patiyala', desc:'Special patiyala paneer', price:'₹260', tags:['Special'], img:'img/paneerrrr.png'},
-  {id:108, cat:'veg', name:' • paneer pasanda', desc:'Rich paneer dish', price:'₹270', tags:['Creamy'], img:'img/paneervv.png'},
-  {id:109, cat:'veg', name:' • veg maaratha', desc:'Maharashtrian style vegetables', price:'₹220', tags:['Spicy'], img:'img/vega.png'},
-  {id:110, cat:'veg', name:' • veg tawa', desc:'Tawa cooked vegetables', price:'₹250', tags:[], img:'img/veg....png'},
-  {id:111, cat:'veg', name:' • veg bhuna', desc:'Dry spiced vegetables', price:'₹190', tags:[], img:'img/vegbb.png'},
-  {id:112, cat:'veg', name:' • veg kolhapuri', desc:'Spicy kolhapuri vegetables', price:'₹170', tags:['Spicy'], img:'img/vegc.png'},
-  {id:113, cat:'veg', name:' • veg japuri', desc:'Rajasthani style vegetables', price:'₹220', tags:[], img:'img/vegd.png'},
-  {id:114, cat:'veg', name:' • veg kadhai', desc:'Kadhai style vegetables', price:'₹240', tags:[], img:'img/vege.png'},
-  {id:115, cat:'veg', name:' • veg angara', desc:'Charcoal flavored vegetables', price:'₹260', tags:['Smoky'], img:'img/vegff.png'},
-  {id:116, cat:'veg', name:' • veg khima', desc:'Minced vegetable dish', price:'₹270', tags:[], img:'img/vegggg.png'},
-  {id:117, cat:'veg', name:' • veg thufani', desc:'Special mixed vegetables', price:'₹280', tags:['Special'], img:'img/vegh.png'},  
-  {id:118, cat:'veg', name:' • veg patiyala', desc:'Special patiyala vegetables', price:'₹270', tags:['Special'], img:'img/vegh.png'},
-  {id:119, cat:'veg', name:' • veg malai kofta', desc:'Vegetable balls in creamy gravy', price:'₹280', tags:['Creamy','Popular'], img:'img/vegj.png'},
-  {id:120, cat:'veg', name:' • veg paneer angara', desc:'Charcoal flavored paneer vegetables', price:'₹280', tags:['Smoky','Special'], img:'img/vegkk.png'},
+      //Fish Dishes
+      {id:171,cat:'fish',name:' • Fish Tawa Fry',desc:'Pan-fried fish',price:'₹159',tags:['Fish','Crispy'],img:'img/fisha.png'},
+      {id:172,cat:'fish',name:' • Fish Roast',desc:'Roasted fish preparation',price:'₹159',tags:['Fish','Roasted'],img:'img/fishb.png'},
+      {id:173,cat:'fish',name:' • Fish Curry',desc:'Fish in traditional curry',price:'₹169',tags:['Fish','Curry'],img:'img/fishc.png'},
+      {id:174,cat:'fish',name:' • Fish Malvani',desc:'Malvani style fish',price:'₹449/699',tags:['Fish','Spicy'],img:'img/fishd.png'},
+      {id:175,cat:'fish',name:' • Fish Handi Half',desc:'Half portion handi fish',price:'₹350',tags:['Fish','Special'],img:'img/fishe.png'},
+      {id:176,cat:'fish',name:' • Fish Handi Full',desc:'Full portion handi fish',price:'₹649',tags:['Fish','Special'],img:'img/fishee.png'},
 
-  //Chicken
-  {id:150, cat:'nonveg', name:' • eggs curry', desc:'Eggs in spicy curry', price:'₹119', tags:['Spicy'], img:'img/eggsz.png'},
-  {id:151, cat:'nonveg', name:' • eggs masala', desc:'Eggs in masala gravy', price:'₹139', tags:['Spicy'], img:'img/eggsaa.png'},
-  {id:152, cat:'nonveg', name:' • chicken curry', desc:'Chicken in traditional curry', price:'₹179', tags:[], img:'img/chickenaaa.png'},
-  {id:153, cat:'nonveg', name:' • chicken roast', desc:'Roasted chicken preparation', price:'₹165', tags:[], img:'img/chickenzzzz.png'},
-  {id:154, cat:'nonveg', name:' • chicken fry', desc:'Fried chicken dish', price:'₹169', tags:['Crispy'], img:'img/chickenyyyy.png'},
-  {id:155, cat:'nonveg', name:' • chicken tawa', desc:'Tawa cooked chicken', price:'₹189', tags:[], img:'img/chickenww.png'},
-  {id:156, cat:'nonveg', name:' • chicken 2pvaz', desc:'Special chicken preparation', price:'₹449/699', tags:['Special'], img:'img/chicken2.png'},
-  {id:157, cat:'nonveg', name:' • chicken kharda', desc:'Spicy chicken dish', price:'₹179', tags:['Spicy'], img:'img/chickenv.png'},
-  {id:158, cat:'nonveg', name:' • chicken tikka masala', desc:'Chicken tikka in rich gravy', price:'₹219/349/649', tags:['Popular'], img:'img/chickenvv.png'},
-  {id:159, cat:'nonveg', name:' • chicken dahiwala', desc:'Chicken in yogurt gravy', price:'₹279', tags:['Creamy'], img:'img/chickennn.png'},
-  {id:160, cat:'nonveg', name:' • butter chicken', desc:'Creamy butter chicken', price:'₹229/449/799', tags:['Creamy','Popular'], img:'img/butterc.png'},
-  {id:161, cat:'nonveg', name:' • chicken handi half', desc:'Half portion handi chicken', price:'₹349', tags:['Special'], img:'img/chickenbbb.png'},
-  {id:162, cat:'nonveg', name:' • chicken malvanai full', desc:'Full Malvani chicken', price:'₹749', tags:['Spicy','Special'], img:'img/chickenm.png'},
-  {id:163, cat:'nonveg', name:' • chicken malvani half', desc:'Half Malvani chicken', price:'₹399', tags:['Spicy'], img:'img/chickenh.png'},
-  {id:164, cat:'nonveg', name:' • chicken handi full', desc:'Full portion handi chicken', price:'₹699', tags:['Special'], img:'img/chickeng.png'},
+      //Soups
+      {id:177,cat:'soup',name:' • Chicken Soup',desc:'Chicken soup',price:'₹39',tags:['Chicken','Basic'],img:'img/chickenvvv.png'},
+      {id:178,cat:'soup',name:' • Chicken Ukkhar',desc:'Chicken clear soup',price:'₹159',tags:['Chicken','Clear'],img:'img/chickennnn.png'},
+      {id:179,cat:'soup',name:' • Chicken Soup Special',desc:'Special chicken soup',price:'₹89',tags:['Chicken','Special'],img:'img/chickengg.png'},
+      {id:180,cat:'soup',name:' • Mutton Soup',desc:'Mutton soup',price:'₹49',tags:['Mutton','Basic'],img:'img/muttonq.png'},
+      {id:181,cat:'soup',name:' • Mutton Ukkhar',desc:'Mutton clear soup',price:'₹239',tags:['Mutton','Clear'],img:'img/muttonw.png'},
+      {id:182,cat:'soup',name:' • Mutton Soup Special',desc:'Special mutton soup',price:'₹169',tags:['Mutton','Special'],img:'img/muttonxx.png'},
+      {id:183,cat:'soup',name:' • Veg Manchow',desc:'Vegetable manchow soup',price:'₹119',tags:['Vegetarian','Chinese'],img:'img/vegfg.png'},
+      {id:184,cat:'soup',name:' • Baby Corn Soup',desc:'Baby corn soup',price:'₹69',tags:['Corn','Vegetarian'],img:'img/babygg.png'},
+      {id:185,cat:'soup',name:' • Tomato Soup',desc:'Tomato soup',price:'₹59',tags:['Tomato','Basic'],img:'img/tomatol.png'},
 
+      //Tandoori & Kabab
+      {id:186,cat:'tandoori',name:' • Chicken Banjara Kabab',desc:'Chicken banjara kabab',price:'₹349/649',tags:['Chicken','Spicy'],img:'img/chickenbbbb.png'},
+      {id:187,cat:'tandoori',name:' • Chicken Boti Kabab',desc:'Chicken boti kabab pieces',price:'₹349/649',tags:['Chicken','Boneless'],img:'img/chickenzx.png'},
+      {id:188,cat:'tandoori',name:' • Chicken Afghani Kabab',desc:'Chicken afghani style kabab',price:'₹349/649',tags:['Chicken','Creamy'],img:'img/chickengggg.png'},
+      {id:189,cat:'tandoori',name:' • Chicken Chatpata Kabab',desc:'Tangy and spicy chicken kabab',price:'₹349/649',tags:['Chicken','Spicy'],img:'img/chickenyyyyy.png'},
+      {id:190,cat:'tandoori',name:' • Chicken Tandoori',desc:'Classic tandoori chicken',price:'₹329/599',tags:['Chicken','Popular'],img:'img/chickenff.png'},
+      {id:191,cat:'tandoori',name:' • Chicken Pahadi',desc:'Pahadi style chicken kabab',price:'₹349/649',tags:['Chicken','Herbs'],img:'img/chickenhh.png'},
+      {id:192,cat:'tandoori',name:' • Chicken Ran',desc:'Special ran chicken preparation',price:'₹199/450/649',tags:['Chicken','Special'],img:'img/chickenmk.png'},
+      {id:193,cat:'tandoori',name:' • Chicken Arabic Kabab',desc:'Arabic style chicken kabab',price:'₹369/699',tags:['Chicken','Special'],img:'img/chickeni.png'},
+      {id:194,cat:'tandoori',name:' • Chicken Tikka',desc:'Chicken tikka pieces',price:'₹349/349',tags:['Chicken','Popular'],img:'img/chickenpp.png'},
 
-  //Mutton
-  {id:165, cat:'mutton', name:' • mutton fry', desc:'Fried mutton dish', price:'₹250', tags:['Crispy'], img:'img/muttonv.png'},
-  {id:166, cat:'mutton', name:' • mutton roast', desc:'Roasted mutton preparation', price:'₹250', tags:[], img:'img/muttonk.png'},
-  {id:167, cat:'mutton', name:' • mutton kadhai', desc:'Mutton in kadhai gravy', price:'₹379', tags:[], img:'img/muttonnn.png'},
-  {id:168, cat:'mutton', name:' • mutton moglai', desc:'Mughlai style mutton', price:'₹379', tags:['Special'], img:'img/muttonu.png'},
-  {id:169, cat:'mutton', name:' • mutton curry', desc:'Traditional mutton curry', price:'₹260', tags:[], img:'img/muttonnm.png'},
-  {id:170, cat:'mutton', name:' • mutton dahiwala', desc:'Mutton in yogurt gravy', price:'₹320', tags:['Creamy'], img:'img/muttonbb.png'},
-  {id:171, cat:'mutton', name:' • mutton bhuna', desc:'Dry spiced mutton', price:'₹330', tags:['Spicy'], img:'img/muttonhh.png'},
-  {id:172, cat:'mutton', name:' • mutton 2dyaz', desc:'Special mutton preparation', price:'₹360', tags:['Special'], img:'img/muttonvv.png'},
-  {id:173, cat:'mutton', name:' • mutton khima', desc:'Minced mutton dish', price:'₹350', tags:[], img:'img/muttony.png'},
-  {id:174, cat:'mutton', name:' • mutton malvani', desc:'Malvani style mutton', price:'₹549/999', tags:['Spicy','Special'], img:'img/muttoncc.png'},
-  {id:175, cat:'mutton', name:' • mutton tikka masala', desc:'Mutton tikka in rich gravy', price:'₹320', tags:['Popular'], img:'img/muttonm.png'},
-  {id:176, cat:'mutton', name:' • mutton handi', desc:'Handi cooked mutton', price:'₹450/899', tags:['Special'], img:'img/muttonhhh.png'},
+      //Thali
+      {id:195,cat:'thali',name:' • Chicken Thali',desc:'Complete chicken meal with sides',price:'₹249',tags:['Non-Veg','Combo'],img:'img/chicken thali.jpeg'},
+      {id:196,cat:'thali',name:' • Mutton Thali',desc:'Complete mutton meal with sides',price:'₹299',tags:['Non-Veg','Combo'],img:'img/mutton thali.jpeg'},
+      {id:197,cat:'thali',name:' • Fish Thali',desc:'Complete fish meal with sides',price:'₹249',tags:['Non-Veg','Combo'],img:'img/fish thali.jpeg'},
+      {id:198,cat:'thali',name:' • Egg Thali Special',desc:'Complete egg meal with sides',price:'₹229',tags:['Non-Veg','Combo'],img:'img/eggs thali.jpeg'},
+      {id:199,cat:'thali',name:' • Shevga Thali',desc:'Complete vegetarian thali',price:'₹219',tags:['Vegetarian','Combo'],img:'img/shevga thali.jpeg'},
 
-  //Fish
-  {id:177, cat:'Fish', name:' • fish tama fry', desc:'Pan-fried fish', price:'₹159', tags:['Crispy'], img:'img/fisha.png'},
-  {id:178, cat:'Fish', name:' • fish roast', desc:'Roasted fish preparation', price:'₹159', tags:[], img:'img/fishb.png'},
-  {id:179, cat:'Fish', name:' • fish curry', desc:'Fish in traditional curry', price:'₹169', tags:[], img:'img/fishc.png'},
-  {id:180, cat:'Fish', name:' • fish malvani', desc:'Malvani style fish', price:'₹449/699', tags:['Spicy','Special'], img:'img/fishd.png'},
-  {id:181, cat:'Fish', name:' • fish handi half', desc:'Half portion handi fish', price:'₹350', tags:['Special'], img:'img/fishe.png'},
-  {id:182, cat:'Fish', name:' • fish handi full', desc:'Full portion handi fish', price:'₹649', tags:['Special'], img:'img/fishee.png'},
+      //Rice & Breads
+      {id:200,cat:'rice',name:' • Tandoori Roti',desc:'Traditional tandoor baked bread',price:'₹15',tags:['Bread','Basic'],img:'img/tandoorih.png'},
+      {id:201,cat:'rice',name:' • Chapati',desc:'Whole wheat flatbread',price:'₹20',tags:['Bread','Healthy'],img:'img/chapatim.png'},
+      {id:202,cat:'rice',name:' • Bhakri',desc:'Traditional Indian flatbread',price:'₹20',tags:['Bread','Traditional'],img:'img/kkkkkkk.png'},
+      {id:203,cat:'rice',name:' • Garlic Butter Naan',desc:'Garlic flavored butter naan',price:'₹69',tags:['Bread','Garlic'],img:'img/garlich.png'},
+      {id:204,cat:'rice',name:' • Butter Naan',desc:'Butter flavored naan',price:'₹49',tags:['Bread','Butter'],img:'img/butterj.png'},
+      {id:205,cat:'rice',name:' • Butter Tandoori Roti',desc:'Butter topped tandoori roti',price:'₹25',tags:['Bread','Butter'],img:'img/butterh.png'},
+      {id:206,cat:'rice',name:' • Butter Chapati',desc:'Butter topped chapati',price:'₹25',tags:['Bread','Butter'],img:'img/butterjj.png'},
+      {id:207,cat:'rice',name:' • Kulcha',desc:'Leavened flatbread',price:'₹29',tags:['Bread','Leavened'],img:'img/kulchamm.png'},
+      {id:208,cat:'rice',name:' • Laccha Paratha',desc:'Layered flatbread',price:'₹59',tags:['Bread','Layered'],img:'img/lacchavv.png'},
+      {id:209,cat:'rice',name:' • Paneer Stuffed Naan',desc:'Paneer stuffed naan',price:'₹149',tags:['Bread','Paneer'],img:'img/paneeruu.png'},
+      {id:210,cat:'rice',name:' • Steam Rice Full',desc:'Full portion steamed rice',price:'₹119',tags:['Rice','Full'],img:'img/steamz.png'},
+      {id:211,cat:'rice',name:' • Steam Rice Half',desc:'Half portion steamed rice',price:'₹69',tags:['Rice','Half'],img:'img/steamjj.png'},
+      {id:212,cat:'rice',name:' • Lemon Rice',desc:'Lemon flavored rice',price:'₹149',tags:['Rice','Tangy'],img:'img/lemonhh.png'},
+      {id:213,cat:'rice',name:' • Jeera Rice Full',desc:'Full portion cumin rice',price:'₹129',tags:['Rice','Jeera'],img:'img/jiraz.png'},
+      {id:214,cat:'rice',name:' • Jeera Rice Half',desc:'Half portion cumin rice',price:'₹79',tags:['Rice','Jeera'],img:'img/jiraw.png'},
+      {id:215,cat:'rice',name:' • Curd Rice',desc:'Yogurt rice',price:'₹159',tags:['Rice','Cooling'],img:'img/curdy.png'},
+      {id:216,cat:'rice',name:' • Veg Pulao',desc:'Vegetable pilaf',price:'₹189',tags:['Rice','Vegetarian'],img:'img/veghk.png'},
+      {id:217,cat:'rice',name:' • Mushroom Pulao',desc:'Mushroom pilaf',price:'₹219',tags:['Rice','Mushroom'],img:'img/mashroonu.png'},
+      {id:218,cat:'rice',name:' • Kashmiri Pulao',desc:'Kashmiri style sweet pilaf',price:'₹249',tags:['Rice','Sweet'],img:'img/kashmirih.png'},
 
-  //Soup
-  {id:183, cat:'soup', name:' • chicken soup', desc:'Chicken soup', price:'₹39', tags:[], img:'img/chickenvvv.png'},
-  {id:184, cat:'soup', name:' • chicken ukkhar', desc:'Chicken ukkhar soup', price:'₹159', tags:[], img:'img/chickennnn.png'},
-  {id:185, cat:'soup', name:' • chicken soup sp1', desc:'Chicken soup special 1', price:'₹89', tags:[], img:'img/chickengg.png'},
-  {id:186, cat:'soup', name:' • mutton soup', desc:'Mutton soup', price:'₹49', tags:[], img:'img/muttonq.png'},
-  {id:187, cat:'soup', name:' • mutton ukkhar', desc:'Mutton ukkhar soup', price:'₹239', tags:[], img:'img/muttonw.png'},
-  {id:188, cat:'soup', name:' • mutton soup sp.', desc:'Mutton soup special', price:'₹169', tags:[], img:'img/muttonxx.png'},
-  {id:189, cat:'soup', name:' • veg manchao', desc:'Vegetable manchow soup', price:'₹119', tags:[], img:'img/vegfg.png'},
-  {id:190, cat:'soup', name:' • baby corn soup', desc:'Baby corn soup', price:'₹69', tags:[], img:'img/babygg.png'},
-  {id:191, cat:'soup', name:' • tomato soup', desc:'Tomato soup', price:'₹59', tags:[], img:'img/tomatol.png'},
-
-    //Tandoori/kabab
-  {id:192, cat:'tandoori', name:' • chicken banjara kabab', desc:'Chicken banjara kabab preparation', price:'₹349/649', tags:['Spicy'], img:'img/chickenbbbb.png'},
-  {id:193, cat:'tandoori', name:' • chicken boti kabab', desc:'Chicken boti kabab pieces', price:'₹349/649', tags:[], img:'img/chickenzx.png'},
-  {id:194, cat:'tandoori', name:' • chicken erani kabab', desc:'Chicken erani style kabab', price:'₹349/649', tags:[], img:'img/chickengggg.png'},
-  {id:195, cat:'tandoori', name:' • chicken chatpata kabab', desc:'Tangy and spicy chicken kabab', price:'₹349/649', tags:['Spicy'], img:'img/chickenyyyyy.png'},
-  {id:196, cat:'tandoori', name:' • chicken tandoori', desc:'Classic tandoori chicken', price:'₹329/599', tags:['Popular'], img:'img/chickenff.png'},
-  {id:197, cat:'tandoori', name:' • chicken pahadi', desc:'Pahadi style chicken kabab', price:'₹349/649', tags:[], img:'img/chickenhh.png'},
-  {id:198, cat:'tandoori', name:' • chicken ran', desc:'Special ran chicken preparation', price:'₹199/450/649', tags:['Special'], img:'img/chickenmk.png'},
-  {id:199, cat:'tandoori', name:' • chicken arbi kabab', desc:'Arabic style chicken kabab', price:'₹369/699', tags:['Special'], img:'img/chickeni.png'},
-  {id:200, cat:'tandoori', name:' • chicken tikka', desc:'Chicken tikka pieces', price:'₹349/349', tags:['Popular'], img:'img/chickenpp.png'},
-
-  //Thali
-  {id:226, cat:'thali', name:' • chicken thali', desc:'Gravy black/red, 5 piece, eggs boil, 3 roti/chapati/bhakri, soup, salad, rice, unlimited gravy', price:'₹249', tags:['Non-Veg','Combo'], img:'img/chicken thali.jpeg'},
-  {id:227, cat:'thali', name:' • mutton thali', desc:'Gravy black/red, 5 piece, eggs boil, 3 roti/chapati/bhakri, soup, salad, rice, unlimited gravy', price:'₹299', tags:['Non-Veg','Combo'], img:'img/mutton thali.jpeg'},
-  {id:228, cat:'thali', name:' • fish thali', desc:'Gravy black/red, 3 piece, roast 2 piece, eggs boil, 3 roti/chapati/bhakri, salad, rice, unlimited gravy', price:'₹249', tags:['Non-Veg','Combo'], img:'img/fish thali.jpeg'},
-  {id:229, cat:'thali', name:' • eggs thali sp.', desc:'Gravy black/red, 2 piece, egg omelet, 3 roti/chapati/bhakri, salad, rice, unlimited gravy', price:'₹229', tags:['Non-Veg','Combo'], img:'img/eggs thali.jpeg'},
-  {id:230, cat:'thali', name:' • shevga thali', desc:'Gravy black/red, 5 piece, 3 roti/chapati/bhakri, soup, salad, rice, unlimited gravy', price:'₹219', tags:['Vegetarian','Combo'], img:'img/shevga thali.jpeg'},
-
-    //Rice /roti
-  {id:201, cat:'Rice', name:' • tandoori roti', desc:'Traditional tandoor baked bread', price:'₹15', tags:[], img:'img/tandoorih.png'},
-  {id:202, cat:'Rice', name:' • chapati', desc:'Whole wheat flatbread', price:'₹20', tags:[], img:'img/chapatim.png'},
-  {id:203, cat:'Rice', name:' • bhakri', desc:'Traditional Indian flatbread', price:'₹20', tags:[], img:'img/kkkkkkk.png'},
-  {id:204, cat:'Rice', name:' • garlic butter nan', desc:'Garlic flavored butter naan', price:'₹69', tags:['Butter','Garlic'], img:'img/garlich.png'},
-  {id:205, cat:'Rice', name:' • butter nan', desc:'Butter flavored naan', price:'₹49', tags:['Butter'], img:'img/butterj.png'},
-  {id:206, cat:'Rice', name:' • butter tandoori roti', desc:'Butter topped tandoori roti', price:'₹25', tags:['Butter'], img:'img/butterh.png'},
-  {id:207, cat:'Rice', name:' • butter chapati', desc:'Butter topped chapati', price:'₹25', tags:['Butter'], img:'img/butterjj.png'},
-  {id:208, cat:'Rice', name:' • kulcha', desc:'Leavened flatbread', price:'₹29', tags:[], img:'img/kulchamm.png'},
-  {id:209, cat:'Rice', name:' • laccha parotha', desc:'Layered flatbread', price:'₹59', tags:[], img:'img/lacchavv.png'},
-  {id:210, cat:'Rice', name:' • paneer stuff nana', desc:'Paneer stuffed naan', price:'₹149', tags:['Paneer','Stuffed'], img:'img/paneeruu.png'},
-  {id:211, cat:'Rice', name:' • steam rice full', desc:'Full portion steamed rice', price:'₹119', tags:[], img:'img/steamz.png'},
-  {id:212, cat:'Rice', name:' • steam rice half', desc:'Half portion steamed rice', price:'₹69', tags:[], img:'img/steamjj.png'},
-  {id:213, cat:'Rice', name:' • lemon rice', desc:'Lemon flavored rice', price:'₹149', tags:['Tangy'], img:'img/lemonhh.png'},
-  {id:214, cat:'Rice', name:' • jira rice full', desc:'Full portion cumin rice', price:'₹129', tags:[], img:'img/jiraz.png'},
-  {id:215, cat:'Rice', name:' • jira rice half', desc:'Half portion cumin rice', price:'₹79', tags:[], img:'img/jiraw.png'},
-  {id:216, cat:'Rice', name:' • curd rice', desc:'Yogurt rice', price:'₹159', tags:['Cooling'], img:'img/curdy.png'},
-  {id:217, cat:'Rice', name:' • veg pulav', desc:'Vegetable pilaf', price:'₹189', tags:['Vegetarian'], img:'img/veghk.png'},
-  {id:218, cat:'Rice', name:' • mashroom pulav', desc:'Mushroom pilaf', price:'₹219', tags:[], img:'img/mashroonu.png'},
-  {id:219, cat:'Rice', name:' • kashmiri pulav', desc:'Kashmiri style sweet pilaf', price:'₹249', tags:['Sweet','Special'], img:'img/kashmirih.png'},
-
-    //Beverages
-  {id:220, cat:'beverages', name:' • cold coffee', desc:'Chilled coffee beverage', price:'₹59', tags:['Cold'], img:'img/coldz.png'},
-  {id:221, cat:'beverages', name:' • cola', desc:'Carbonated soft drink', price:'₹25', tags:['Cold'], img:'img/colaj.png'},
-  {id:222, cat:'beverages', name:' • lemon', desc:'Refreshing lemon drink', price:'₹25', tags:['Refreshing'], img:'img/lemonj.png'},
-  {id:223, cat:'beverages', name:' • orange', desc:'Orange flavored drink', price:'₹25', tags:['Refreshing'], img:'img/orangez.png'},
-  {id:224, cat:'beverages', name:' • frappe', desc:'Iced blended drink', price:'₹59', tags:['Cold'], img:'img/frappejj.png'},
-  {id:225, cat:'beverages', name:' • chocolate shake', desc:'Chocolate flavored milkshake', price:'₹59', tags:['Sweet','Cold'], img:'img/chocolatejjjj.png'},
+      //Beverages
+      {id:219,cat:'beverages',name:' • Cold Coffee',desc:'Chilled coffee beverage',price:'₹59',tags:['Cold','Coffee'],img:'img/coldz.png'},
+      {id:220,cat:'beverages',name:' • Cola',desc:'Carbonated soft drink',price:'₹25',tags:['Cold','Soda'],img:'img/colaj.png'},
+      {id:221,cat:'beverages',name:' • Lemonade',desc:'Refreshing lemon drink',price:'₹25',tags:['Refreshing','Lemon'],img:'img/lemonj.png'},
+      {id:222,cat:'beverages',name:' • Orange Drink',desc:'Orange flavored drink',price:'₹25',tags:['Refreshing','Orange'],img:'img/orangez.png'},
+      {id:223,cat:'beverages',name:' • Frappe',desc:'Iced blended drink',price:'₹59',tags:['Cold','Blended'],img:'img/frappejj.png'},
+      {id:224,cat:'beverages',name:' • Chocolate Shake',desc:'Chocolate flavored milkshake',price:'₹59',tags:['Sweet','Cold'],img:'img/chocolatejjjj.png'},
     ];
+
     // Cart functionality
     let cart = [];
     const cartButton = document.getElementById('cartButton');
@@ -848,7 +1242,7 @@ body::before {
         return;
       }
       
-      const phoneNumber = "919284969878"; // Replace with your WhatsApp business number
+      const phoneNumber = "917276133639"; // Replace with your WhatsApp business number
       const message = generateWhatsAppMessage();
       window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
     });
