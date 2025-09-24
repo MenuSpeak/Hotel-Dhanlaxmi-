@@ -37,37 +37,85 @@
 
 
 
-/* Logo ke side mein blank space ke liye icon */
-.beverage-item {
-    position: relative;
-    padding-left: 60px;
-    margin-bottom: 20px;
+/* --------------------
+   Logo with Icon
+-------------------- */
+.brand {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  position: relative; /* Icon positioning ke liye */
 }
 
-.beverage-item::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 50px;
-    height: 50px;
-    background-image: url('icon.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+.logo {
+  width: 86px;
+  height: 86px;
+  border-radius: 14px;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-family: var(--ff-heading);
+  font-size: 28px;
+  font-weight: 700;
+  box-shadow: 0 6px 22px rgba(212,175,55,0.12);
+  position: relative; /* Icon ke liye positioning */
+  overflow: hidden; /* Icon border radius maintain karne ke liye */
 }
 
-/* Responsive design ke liye */
-@media (max-width: 768px) {
-    .beverage-item {
-        padding-left: 50px;
-    }
-    
-    .beverage-item::before {
-        width: 40px;
-        height: 40px;
-    }
+/* Logo ke side mein icon */
+.logo::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 24px;
+  height: 24px;
+  background-image: url('icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 4px;
 }
+
+/* Agar aapko icon logo ke bahar side mein chahiye */
+.logo-with-external-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.external-icon {
+  width: 30px;
+  height: 30px;
+  background-image: url('icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Alternative: Logo ke top-right corner mein icon */
+.logo-container {
+  position: relative;
+  display: inline-block;
+}
+
+.corner-icon {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  background-image: url('icon.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  border: 2px solid white;
+  z-index: 2;
+}
+
 
 
 
